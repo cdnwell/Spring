@@ -12,7 +12,7 @@ public class MemberDTO {
 	private String address;
 	
 	public MemberDTO() {
-		super();
+
 	}
 
 	public MemberDTO(String id, String passwd, String name, int age, String gender, String address) {
@@ -78,5 +78,7 @@ public class MemberDTO {
 		return "MemberDTO [id=" + id + ", passwd=" + passwd + ", name=" + name + ", age=" + age + ", gender=" + gender
 				+ ", address=" + address + "]";
 	}
+	
+	
 	
 }
