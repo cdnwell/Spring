@@ -7,11 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>첫 번째 테스트 페이지</h1>
-	<form action="form.do">
-		<input type="text" name="name"><br>
-		<input type="text" name="age"><br>
-		<button>전송</button>
-	</form>
+	<h1>두 번째 테스트 페이지</h1>
 </body>
 </html>

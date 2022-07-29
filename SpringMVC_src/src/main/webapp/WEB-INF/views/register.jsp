@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>첫 번째 테스트 페이지</h1>
-	<form action="form.do">
+	<form action="register.do" method="post">
+		<input type="text" name="id"><br>
+		<input type="password" name="pass"><br>
 		<input type="text" name="name"><br>
 		<input type="text" name="age"><br>
 		<button>전송</button>
