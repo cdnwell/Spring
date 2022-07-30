@@ -35,7 +35,7 @@
 </style>
 <nav id="menu_bar">
 	<ul>
-		<li><a href="main.do">HOME</a></li>
+		<li><a href="/">HOME</a></li>
 		<li><a href="logout.do">로그아웃</a></li>
 		<c:if test="${sessionScope.grade == 6 }">
 			<li><a href="member_manage_main.jsp">전체 회원 관리</a></li>
@@ -104,7 +104,7 @@
 </style>
 <nav id="menu_bar">
 	<ul>
-		<li><a href="main.do">HOME</a></li>
+		<li><a href="/">HOME</a></li>
 		<li><a href="register.jsp">회원가입</a></li>
 		<li><a href="loginView.do">로그인</a></li>
 		<li><a href="#">문의하기</a></li>

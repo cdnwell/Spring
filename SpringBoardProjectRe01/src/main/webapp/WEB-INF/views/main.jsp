@@ -57,6 +57,15 @@
 		position:absolute;
 		right:0px;
 	}
+	
+	.pageNo{
+		font-weight : bold;
+		color:black;
+		text-decoration: none;
+		font-size : 18px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
 </style>
 </head>
 <body>
@@ -93,20 +102,27 @@
 		</c:forEach>
 			<tr>
 			<td colspan="7">
-					<div class="page_bar">
-						<c:if test="${pagging.previousPageGroup }">
-							<a href="main.do?pageNo=${pagging.startPageOfPageGroup - 1 }">◀</a>
-						</c:if>
-						<c:forEach var="i" begin="${pagging.startPageOfPageGroup}" 
-						end="${pagging.endPageOfPageGroup}">
-							<a href="main.do?pageNo=${i }">${ i}</a>
-						</c:forEach>
-					
-						<c:if test="${pagging.nextPageGroup }">
-							<a href="main.do?pageNo=${pagging.endPageOfPageGroup + 1 }">▶</a>
-						</c:if>
-						<a href="boardWriteView.do" class="btn_writer">글쓰기</a>
-					</div>
+				<div class="page_bar">
+					<c:if test="${requestScope.pagging.previousPageGroup }">
+						<a href="main.do?pageNo=${pagging.startPageOfPageGroup - 1 }">◀</a>
+					</c:if>
+					<c:forEach var="i" begin="${requestScope.pagging.startPageOfPageGroup}" 
+					end="${requestScope.pagging.endPageOfPageGroup}">
+						<c:choose>
+							<c:when test="${requestScope.pagging.currentPageNo == i }">
+								<span href="main.do?pageNo=${i }" class="pageNo">${ i}</span>
+							</c:when>
+							<c:otherwise>
+								<a href="main.do?pageNo=${i }">${ i}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${requestScope.pagging.nextPageGroup }">
+						<a href="main.do?pageNo=${requestScope.pagging.endPageOfPageGroup + 1 }">▶</a>
+					</c:if>
+					<a href="boardWriteView.do" class="btn_writer">글쓰기</a>
+				</div>
+				</td>
 			</tr>
 		</table>
 	</div>
@@ -114,10 +130,3 @@
 	
 </body>
 </html>
-
-
-
-
-
-
-

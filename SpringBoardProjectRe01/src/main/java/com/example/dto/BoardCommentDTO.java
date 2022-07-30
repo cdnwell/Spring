@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 public class BoardCommentDTO {
 	private int cno;
 	private int bno;
-	private String comment;
+	private String content;
 	private String writer;
 	private String cdate;
 	private int clike;
@@ -15,21 +15,21 @@ public class BoardCommentDTO {
 	public BoardCommentDTO() {
 	}
 
-	public BoardCommentDTO(int cno, int bno, String comment, String writer, String date, int like, int hate) {
+	public BoardCommentDTO(int cno, int bno, String content, String writer, String date, int like, int hate) {
 		super();
 		this.cno = cno;
 		this.bno = bno;
-		this.comment = comment;
+		this.content = content;
 		this.writer = writer;
 		this.cdate = date;
 		this.clike = like;
 		this.chate = hate;
 	}
 
-	public BoardCommentDTO(int bno, String comment, String writer) {
+	public BoardCommentDTO(int bno, String content, String writer) {
 		super();
 		this.bno = bno;
-		this.comment = comment;
+		this.content = content;
 		this.writer = writer;
 	}
 
@@ -49,12 +49,12 @@ public class BoardCommentDTO {
 		this.bno = bno;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getWriter() {

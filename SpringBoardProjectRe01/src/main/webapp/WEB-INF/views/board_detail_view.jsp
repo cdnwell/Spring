@@ -231,7 +231,7 @@
 						<a href="#" class="btn_like">
 							<img src="${pageContext.request.contextPath }/img/like.png" class="hate">
 							<!-- 싫어요 개수 -->
-							<span>${requestScope.board.bLike }</span>
+							<span>${requestScope.board.bHate }</span>
 						</a>
 					</td>
 				</tr>
@@ -264,9 +264,7 @@
 					</td>
 				</tr>
 				<tr>
-				
-						<td colspan="2">
-					
+					<td colspan="2">
 					<c:forEach var="comment" items="${requestScope.comment }">
 						<p>${comment.writer }
 						${comment.cdate }
@@ -277,9 +275,7 @@
 							${comment.content }
 						</p>
 					</c:forEach>
-					
-						</td>
-							
+					</td>
 				</tr>
 			</table>
 	</div>

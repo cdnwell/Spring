@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MemberMapper">
+	<select id="login" parameterType="map" resultType="member">
+		SELECT bm.id, bm.passwd, bm.name, bm.nick, bm.grade_no as gradeNo,
+		 g.grade_name as gradeName
+		FROM BOARD_MEMBER bm, GRADE g
+		WHERE g.GRADE_NO = bm.grade_no
+		and bm.id like #{id} and bm.passwd like #{passwd}
+	</select>
+	
+</mapper>
