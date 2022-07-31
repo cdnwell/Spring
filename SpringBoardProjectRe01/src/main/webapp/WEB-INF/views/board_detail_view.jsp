@@ -123,7 +123,7 @@
 			$.ajax({
 				url : "insertComment.do",
 				data : data,
-				method:"get",
+				type :"get",
 				success:function(d){
 					if(d == 1){
 						alert("댓글 등록 성공");

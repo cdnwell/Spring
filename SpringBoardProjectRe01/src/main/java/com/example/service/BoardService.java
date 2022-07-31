@@ -56,6 +56,9 @@ public class BoardService {
 	public int insertFile(FileDTO file) {
 		return mapper.insertFile(file);
 	}
-	
-	
+
+	public int insertBoardComment(BoardCommentDTO dto) {
+		return mapper.insertBoardComment(dto);
+	}
+
 }

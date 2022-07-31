@@ -69,7 +69,7 @@
 		</script>
 	</c:if>
     <jsp:include page="template/header.jsp" flush="false"></jsp:include>
-
+	
     <form action="boardWrite.do" method="post" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="제목">
         <input type="text" name="writer" placeholder="작성자" value="${sessionScope.id}" readonly>

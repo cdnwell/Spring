@@ -35,4 +35,8 @@
 	<insert id="insertFile" parameterType="file">
 		insert into board_file values(#{bno},#{fno},#{path})
 	</insert>
+	<insert id="insertBoardComment" parameterType="comment">
+		insert into board_comment(cno,content,bno,writer)
+		values(board_comment_cno.nextval,#{content},#{bno},#{writer})
+	</insert>
 </mapper>
