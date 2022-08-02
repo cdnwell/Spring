@@ -2,6 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.BoardMapper">
-
+<mapper namespace="com.example.mapper.BoardMapper">
+	<select id="selectBoardList" parameterType="int" resultType="board">
+		select * from (select ceil(rownum / 15) as pageNo, b.* from board_view b)
+		where pageNo = #{num}
+	</select>
+	<select id="selectBoardCount" resultType="int">
+		select count(*) from board_view
+	</select>
 </mapper>

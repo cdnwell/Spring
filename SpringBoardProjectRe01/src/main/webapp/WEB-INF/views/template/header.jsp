@@ -71,11 +71,9 @@
 				</c:choose>
 				<td>${sessionScope.name }님 로그인</td>
 			</tr>
-			
 		</table>
-		
 	</div>
-</nav>		
+</nav>	
 </c:if>
 <c:if test="${sessionScope.login == null || sessionScope.id == null}">
 <!-- 메뉴부분 -->
