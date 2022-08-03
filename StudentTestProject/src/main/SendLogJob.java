@@ -5,9 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -21,38 +26,20 @@ public class SendLogJob implements Job{
 		File file = new File("error.txt");
 		FileReader fr = null;
 		BufferedReader br = null;
-		String text = new String();
 		
 		try {
-			fr = new FileReader(file);
+			Charset cst = Charset.forName("utf-8");
+			fr = new FileReader(file,cst);
 			br = new BufferedReader(fr);
 			
-			while(true) {
-				String s = br.readLine();
-				if( s == null)
-					break;
-				text += s;
+			String str;
+			while((str = br.readLine()) != null) {
+				String str0 = str.split("\t")[0];
+				String str1 = str.split("\t")[1];
+				String str2 = str.split("\t")[2];
+				sendLog(str0,str1,str2);
+				System.out.println(str);
 			}
-			System.out.println(text);
-			
-			String[] msg = text.split("\t");	
-			
-			String log_date = msg[0];
-			String error_code = msg[3];
-			String content = msg[4];
-			
-			String apiUrl = "http://localhost:9999/search.do?log_date="+log_date+"&error_code="+error_code+
-					"&content="+content;
-			URL url = new URL(apiUrl);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			
-			FileOutputStream fos = new FileOutputStream("error.txt",false);
-			PrintWriter pw = new PrintWriter(fos);
-			
-			String str = "";
-			pw.println(str);
-			pw.flush();
-			pw.close();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -62,10 +49,38 @@ public class SendLogJob implements Job{
 			try {
 				if(br != null) br.close();
 				if(fr != null) fr.close();
+				System.out.println("기존 로그 파일 삭제 : ");
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void sendLog(String str0,String str1,String str2) {
+		
+		try {
+			String apiUrl = "http://localhost:9999/errorLog.do?date=%s&code=%s&content=%s";
+			apiUrl = String.format(apiUrl, URLEncoder.encode(str0.split("_")[0],"utf-8"), URLEncoder.encode(str1,"utf-8"), URLEncoder.encode(str2,"utf-8"));
+			URL url = new URL(apiUrl);
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String s = "";
+			String tmp;
+			
+			while((tmp=br.readLine())!=null)
+				s += tmp;
+			
+			br.close();
+			conn.disconnect();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		
 	}
 

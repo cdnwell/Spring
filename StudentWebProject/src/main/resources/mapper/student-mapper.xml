@@ -10,4 +10,8 @@
 		select * from student
 		where ${kind} like '%' || #{search} || '%'
 	</select>
+	<insert id="insertErrorLog" parameterType="map">
+		insert into student_log(log_date,error_code,content) values(#{date},
+		#{code},#{content})
+	</insert>
 </mapper>

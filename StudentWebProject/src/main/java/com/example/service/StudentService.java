@@ -27,6 +27,14 @@ public class StudentService {
 		map.put("search", search);
 		return mapper.searchStudent(map);
 	}
+
+	public void insertErrorLog(String code, String date, String content) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("date", date);
+		map.put("code", code);
+		map.put("content", content);
+		mapper.insertErrorLog(map);
+	}
 	
 	
 	

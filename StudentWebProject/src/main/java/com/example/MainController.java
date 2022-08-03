@@ -3,6 +3,7 @@ package com.example;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
@@ -62,4 +63,15 @@ public class MainController {
 		response.getWriter().write(obj.toString());
 	}
 	
+	@RequestMapping("/errorLog.do")
+	public void errorLog(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String code = request.getParameter("code");
+		String date= request.getParameter("date");
+		String content= request.getParameter("content");
+		
+		service.insertErrorLog(code, date, content);
+		
+		response.setContentType("text/html;charset=uft-8");
+		response.getWriter().write("전송 완료");
+	}
 }

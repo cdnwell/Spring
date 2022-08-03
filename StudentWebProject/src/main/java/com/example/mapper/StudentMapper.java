@@ -14,4 +14,6 @@ public interface StudentMapper {
 
 	List<StudentDTO> searchStudent(HashMap<String, String> map);
 
+	int insertErrorLog(HashMap<String, String> map);
+
 }

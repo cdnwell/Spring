@@ -1,0 +1,5 @@
+2022/08/03_07:53:25	500	Server returned HTTP response code: 500 for URL: http://localhost:9999/search.do?kind=asdf&search=asdf
+2022/08/03_07:53:32	500	Server returned HTTP response code: 400 for URL: http://localhost:9999/search.do?kind=ㅁㄴㅇㄹ&search=%E3%85%81%E3%84%B4%E3%85%87%E3%84%B9
+2022/08/03_07:53:39	500	Server returned HTTP response code: 500 for URL: http://localhost:9999/search.do?kind=qwer&search=qtq
+2022/08/03_07:54:57	500	Server returned HTTP response code: 500 for URL: http://localhost:9999/search.do?kind=asdf&search=asdf
+2022/08/03_07:55:16	500	Server returned HTTP response code: 500 for URL: http://localhost:9999/search.do?kind=qwte&search=qwte

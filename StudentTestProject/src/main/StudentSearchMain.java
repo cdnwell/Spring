@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
@@ -42,7 +43,7 @@ public class StudentSearchMain {
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf-8"));
 			
 			String result = "";
 			
@@ -68,19 +69,14 @@ public class StudentSearchMain {
 						);
 			}
 			
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
 			try {
 				FileOutputStream fos = new FileOutputStream("error.txt",true);
-				PrintWriter pw = new PrintWriter(fos);
+				Charset cst = Charset.forName("utf-8");
+				PrintWriter pw = new PrintWriter(fos,false,cst);
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd_hh:mm:ss");
 				
-				String str = sdf.format(Calendar.getInstance().getTime()) + "\t" + "검색한 종류 : " + kind + "\t" + "검색한 내용 : " + search_err + "\t" + e.getMessage();
+				String str = sdf.format(Calendar.getInstance().getTime()) + "\t"+"500"+"\t" + e.getMessage();
 				pw.println(str);
 				pw.flush();
 				pw.close();
