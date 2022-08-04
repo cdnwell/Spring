@@ -35,4 +35,10 @@ public class MainController {
 		
 		return "main";
 	}
+	
+	@RequestMapping("/main.do")
+	public String mainView() {
+		
+		return "redirect:/";
+	}
 }

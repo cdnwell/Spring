@@ -54,7 +54,7 @@
         <c:if test="${sessionScope.login != null && sessionScope.id != null}">
         <nav>
             <ul>
-                <li><a href="main.do">HOME</a></li>
+                <li><a href="/">HOME</a></li>
                 <li><a href="logout.do">로그아웃</a></li>
                 <li><a href="#">회원정보수정</a></li>
             </ul>
@@ -63,11 +63,13 @@
         <c:if test="${sessionScope.login == null && sessionScope.id == null}">
         <nav>
             <ul>
-                <li><a href="main.do">HOME</a></li>
-                <li><a href="logout.do">로그인</a></li>
+                <li><a href="/">HOME</a></li>
+                <li><a href="loginView.do">로그인</a></li>
                 <li><a href="#">회원가입</a></li>
             </ul>
         </nav>
         </c:if>
     <span class="login_info">${sessionScope.name}님이 로그인하셨습니다</span>
 </header>
+
+

@@ -57,7 +57,7 @@ public class MainController {
 		return "main";
 	}
 	
-	@RequestMapping("/main.di")
+	@RequestMapping("/main.do")
 	public String main() {
 		return "redirect:/";
 	}
