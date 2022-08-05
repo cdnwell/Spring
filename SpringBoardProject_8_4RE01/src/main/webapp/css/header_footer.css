@@ -1,0 +1,78 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    width : 1200px;
+    margin : 0 auto;
+    margin-top : 20px;
+    border: 1px solid gray;
+    position:relative;
+    text-align:center;
+    width: 1200px;
+    height: 400px;
+    background-image: url(../img/javier-miranda-Jn2EaLLYZfY-unsplash.jpg);
+    background-size: 1200px;
+}
+nav{
+    height: 80px;
+    position: absolute;
+    left: 288px;
+    top: 320px;
+}
+ul{
+    text-align: center;
+}
+li{
+    display: inline-block;
+}
+li > a{
+    display: inline-block;
+    width: 150px;
+    text-decoration: none;
+    color: white;
+    padding: 30px;
+}
+li > a:hover{
+    color: darksalmon;
+    transition: 0.8s;
+}
+
+.login_info{
+    display: inline-block;
+    position: absolute;
+    color: white;
+    top: 5px;
+    right: 7px;
+}
+
+
+
+footer{
+    width: 100%;
+    
+    background-color: #131C2B;
+    text-align: center;
+    min-width : 1200px;
+}
+
+footer span > a {
+    padding: 0;
+    color: white;
+    font-size: 12px;
+}
+
+footer span{
+    color: white;
+    font-size: 12px;
+    display: inline-block;
+}
+
+footer span:first-child{
+    margin-top: 30px;
+}
+
+footer span:last-child{
+    margin-bottom: 30px;
+}

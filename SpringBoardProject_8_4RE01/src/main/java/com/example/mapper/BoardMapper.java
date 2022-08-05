@@ -16,5 +16,6 @@ public interface BoardMapper {
 	BoardDTO selectBoard(int bno);
 	List<FileDTO> selectFileList(int bno);
 	List<BoardCommentDTO> selectComment(int bno);
+	int addBoardCount(int bno);
 	
 }

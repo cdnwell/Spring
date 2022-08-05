@@ -37,6 +37,10 @@ public class BoardService {
 	public List<BoardCommentDTO> selectComment(int bno) {
 		return mapper.selectComment(bno);
 	}
+
+	public int addBoardCount(int bno) {
+		return mapper.addBoardCount(bno);
+	}
 	
 	
 	

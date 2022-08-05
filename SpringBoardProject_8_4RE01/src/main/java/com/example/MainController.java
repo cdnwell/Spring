@@ -1,6 +1,8 @@
 package com.example;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 
@@ -68,6 +70,10 @@ public class MainController {
 			session.setAttribute("gradeNo", dto.getGradeNo());
 			session.setAttribute("login", true);
 			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String date = sdf.format(Calendar.getInstance().getTime());
+			session.setAttribute("date", date);
+			
 			return "redirect:/main.do";
 		}
 		
@@ -91,6 +97,7 @@ public class MainController {
 	
 	@RequestMapping("/boardView.do")
 	public String boardView(int bno,HttpServletResponse response,Model model,HttpSession session) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
 		BoardDTO dto = boardService.selectBoard(bno);
 		List<FileDTO> flist= boardService.selectFileList(bno);
 		List<BoardCommentDTO> comment = boardService.selectComment(bno);
@@ -105,7 +112,7 @@ public class MainController {
 		
 		if(dto != null) {
 			session.setAttribute("bno_history",set);
-			model.addAttribute("board_content",dto);
+			model.addAttribute("board",dto);
 			model.addAttribute("flist",flist);
 			model.addAttribute("comment",comment);
 			
@@ -114,8 +121,8 @@ public class MainController {
 			response.getWriter().write("<script>alert('게시물이 존재하지 않습니다.');history.back();</script>");
 			return null;
 		}
-		
-		
 	}
+	
+	
 	
 }
