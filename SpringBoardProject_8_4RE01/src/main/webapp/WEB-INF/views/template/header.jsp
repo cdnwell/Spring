@@ -53,13 +53,12 @@ li>a:hover {
 	display: inline-block;
 	position: absolute;
 	color: white;
-	top: 5px;
+	bottom: 3px;
 	right: 7px;
 }
 </style>
 <header>
 	<div>
-		<span class="login_info">${sessionScope.name}님 로그인</span>
 		<svg class="waves" xmlns="http://www.w3.org/2000/svg"
 			xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28"
 			preserveAspectRatio="none" shape-rendering="auto">
@@ -88,7 +87,7 @@ li>a:hover {
 				</ul>
 			</nav>
 		</c:if>
-		<c:if test="${sessionScope.login == null && sessionScope.id == null}">
+		<c:if test="${sessionScope.login == null || sessionScope.id == null}">
 			<nav>
 				<ul>
 					<li><a href="/">HOME</a></li>
@@ -96,6 +95,9 @@ li>a:hover {
 					<li><a href="#">회원가입</a></li>
 				</ul>
 			</nav>
+		</c:if>
+		<c:if test="${sessionScope.login != null && sessionScope.id != null }">
+			<span class="login_info">${sessionScope.name}님 로그인</span>
 		</c:if>
 	</div>
 	

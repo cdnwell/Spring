@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -40,6 +41,64 @@ public class BoardService {
 
 	public int addBoardCount(int bno) {
 		return mapper.addBoardCount(bno);
+	}
+
+	public int commentDelete(int cno) {
+		return mapper.commentDelete(cno);
+	}
+
+	public int insertComment(int bno, String content,String id) {
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("content", content);
+		map.put("writer", id);
+		return mapper.insertComment(map);
+	}
+
+	public int insertBoard(BoardDTO dto) {
+		int bno = mapper.selectBoardNo();
+		dto.setBno(bno);
+		mapper.insertBoard(dto);
+		return bno;
+	}
+
+	public int insertFileList(FileDTO fileDTO) {
+		return mapper.insertFileList(fileDTO);
+	}
+
+	public FileDTO selectFile(String bno, String fno) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("fno", fno);
+		return mapper.selectFile(map);
+	}
+
+	public int insertBoardLike(int bno, String id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("id", id);
+		int result = 0 ;
+		try {
+			result = mapper.insertBoardLike(map);
+		} catch (Exception e) {
+			mapper.deleteBoardLike(map);
+		}
+		
+		return result;
+	}
+
+	public int insertBoardHate(int bno, String id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("id", id);
+		int result = 0 ;
+		try {
+			result = mapper.insertBoardHate(map);
+		} catch (Exception e) {
+			mapper.deleteBoardHate(map);
+		}
+		
+		return result;
 	}
 	
 	

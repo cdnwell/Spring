@@ -1,5 +1,9 @@
 package com.example;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.dto.BoardCommentDTO;
 import com.example.dto.BoardDTO;
@@ -123,6 +129,106 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping("/commentDelete.do")
+	public String commentDelete(int cno,int bno) {
+		boardService.commentDelete(cno);
+		
+		return "redirect:/boardView.do?bno="+bno;
+	}
 	
+	@RequestMapping("/commentWrite.do")
+	public void commentWrite(int bno, String content, HttpSession session,
+			HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		String id = (String)session.getAttribute("id");
+		content = content.replaceAll("\n", "<br>");
+		int result = 0;
+		try{
+			result = boardService.insertComment(bno,content,id);
+			if(result == 0) throw new Exception();
+			response.getWriter().write("<script>alert('댓글 등록 성공');location.href='boardView.do?bno="+bno+"';</script>");
+		} catch (Exception e) {
+			response.getWriter().write("<script>alert('댓글 등록에 실패하였습니다.');location.href='boardView.do?bno="+bno+"';</script>");
+		}
+	}
+	
+	@RequestMapping("/boardWriteView.do")
+	public String boardWriteView() {
+		
+		return "board_write_view";
+	}
+	
+	@RequestMapping("/boardWrite.do")
+	public String boardWrite(BoardDTO dto, MultipartHttpServletRequest request) {
+		int bno = boardService.insertBoard(dto);
+		
+		String root = "c:\\uploadFiles\\";
+		File userRoot = new File(root);
+		if(!userRoot.exists())
+			userRoot.mkdirs();
+		
+		List<MultipartFile> fileList = request.getFiles("file");
+		int i = 1;
+		for(MultipartFile f : fileList) {
+			String originalFileName = f.getOriginalFilename();
+			if(f.getSize() == 0) continue;
+			File uploadFile = new File(root + "\\" + originalFileName);
+			boardService.insertFileList(new FileDTO(uploadFile,bno,i));
+			i++;
+			try {
+				f.transferTo(uploadFile);
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return "redirect:/boardView.do?bno="+bno;
+	}
+	
+	@RequestMapping("/fileDown.do")
+	public void fileDown(String fno, String bno, HttpServletResponse response) {
+		FileDTO dto = boardService.selectFile(bno,fno);
+		
+		File file = new File(dto.getPath());
+		
+		response.setHeader("Content-Disposition", "attachment;fileName="+file.getName());
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setContentLength((int)file.length());
+		
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			
+			BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+			byte[] buffer = new byte[1024*1024];
+			
+			while(true) {
+				int size = fis.read(buffer);
+				if(size == -1) break;
+				bos.write(buffer,0,size);
+				bos.flush();
+			}
+			
+			fis.close();
+			bos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/boardLike.do")
+	public void boardLike(int bno,HttpSession session, HttpServletResponse response) throws IOException {
+		String id = (String)session.getAttribute("id");
+		int result = boardService.insertBoardLike(bno,id);
+		response.getWriter().write(String.valueOf(result));
+	}
+	
+	@RequestMapping("/boardHate.do")
+	public void boardHate(int bno,HttpSession session,HttpServletResponse response) throws IOException {
+		String id = (String)session.getAttribute("id");
+		int result = boardService.insertBoardHate(bno,id);
+		response.getWriter().write(String.valueOf(result)); 
+	}
 	
 }

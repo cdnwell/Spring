@@ -38,6 +38,11 @@ td>a:hover {
 	text-align: center;
 }
 
+.table_footer{
+	width : 100%;
+	position : relative;
+}
+
 .table_footer a {
 	font-size: 18px;
 }
@@ -51,11 +56,30 @@ td>a:hover {
 	color: red;
 }
 
+#table_footer_write{
+	font-size : 16px;
+	color : black;
+	position : absolute;
+	right : 10px;
+}
+
+#table_footer_write:hover{
+	font-weight : bold;
+}
+
 .paging_normal {
 	font-size: 18px;
 	font-weight: bold;
 }
+
+.before-arrow , .next-arrow{
+	
+	width : 15px;
+}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 	<jsp:include page="template/header.jsp"></jsp:include>
@@ -84,7 +108,7 @@ td>a:hover {
 			<tr>
 				<td colspan="7" class="table_footer"><c:if
 						test="${requestScope.paging.previousPageGroup}">
-						<a href="/?pageNo=${paging.startPageOfPageGroup - 1 }"> ◁ </a>
+						<a href="/?pageNo=${paging.startPageOfPageGroup - 1 }"> <img src="img/back-button.png" class="before-arrow"> </a>
 					</c:if> <c:forEach var="m"
 						begin="${requestScope.paging.startPageOfPageGroup}"
 						end="${requestScope.paging.endPageOfPageGroup}">
@@ -97,8 +121,12 @@ td>a:hover {
 							</c:otherwise>
 						</c:choose>
 					</c:forEach> <c:if test="${requestScope.paging.nextPageGroup}">
-						<a href="/?pageNo=${paging.endPageOfPageGroup + 1 }">▷</a>
-					</c:if></td>
+						<a href="/?pageNo=${paging.endPageOfPageGroup + 1 }"> <img src="img/fast-forward.png" class="next-arrow"> </a>
+					</c:if>
+					<c:if test="${sessionScope.login != null && sessionScope.id != null }">
+						<a href="boardWriteView.do" id="table_footer_write">글쓰기</a>
+					</c:if>
+					</td>
 			</tr>
 		</table>
 	</section>

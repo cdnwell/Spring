@@ -182,6 +182,17 @@
 
         }
 
+		.comment_view_box_delete a{
+            display: inline-block;
+            position: absolute;
+            right: 106px;
+            bottom: 9px;
+        }
+
+        .comment_view_box_delete a:link, .comment_view_box_delete a:visited{
+            font-size: 14px;
+        }
+
         .comment_view_box_preferences {
             position: absolute;
             right: 10px;
@@ -269,6 +280,16 @@
             color: white;
         }
 
+		.comment_not_login{
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            padding: 10px 0;
+        }
+
+        .comment_not_login a:link, .comment_not_login a:visited{
+            color: cornflowerblue;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -282,6 +303,40 @@
                 }
                 var content_count = content.val().length;
                 count.html(content_count+'/500' );
+            });
+            
+            $('.boardLike').click(function(){
+            	var d="bno=${requestScope.board.bno}";
+            	$.ajax({
+            		url : "boardLike.do",
+            		data : d,
+            		type : "get",
+            		success : function(r){
+            			if(r!=0){
+	            			alert('이 게시글의 좋아요를 누르셨습니다.');
+            			} else {
+            				alert('이 게시글의 좋아요를 취소하셨습니다.');
+            			}
+            				location.reload();
+            		}
+            	});
+            });
+            
+            $('.boardHate').click(function(){
+            	var d="bno=${requestScope.board.bno}";
+            	$.ajax({
+            		url : "boardHate.do",
+            		data : d,
+            		type : "get",
+            		success : function(r){
+            			if(r!=0){
+	            			alert('이 게시글의 싫어요를 누르셨습니다.');
+            			} else {
+            				alert('이 게시글의 싫어요를 취소하셨습니다.');
+            			}
+            			location.reload();
+            		}
+            	});
             });
         });
     </script>
@@ -317,26 +372,26 @@
     <section>
         <div class="title_box">
             <div class="title_bDate">
-                작성자<br>
-                <span class="title_bDate_date"> 글 작성일 </span>
+               	${requestScope.board.writer }<br>
+                <span class="title_bDate_date"> ${requestScope.board.bDate } </span>
             </div>
-            <div class="title_title"> 글 제목 </div>
+            <div class="title_title"> ${requestScope.board.title } </div>
             <div class="title_bCount">
-                <b>조회숫자</b> &nbsp;<span class="title_bCount_views">views</span>
+                <b>${requestScope.board.bCount }</b> &nbsp;<span class="title_bCount_views">views</span>
             </div>
             <div class="title_preferences">
-                <a href=""><img src="img/thumbs-up.png" class="title_like"></a> 1 <a href=""><img
-                        src="img/thumbs-down.png" class="title_hate"></a> 1
+                <a class="boardLike" href="#"><img src="img/thumbs-up.png" class="title_like"></a> ${requestScope.board.bLike } <a class="boardHate" href="#"><img
+                        src="img/thumbs-down.png" class="title_hate"></a> ${requestScope.board.bHate }
             </div>
         </div>
         <div class="content_box">
-            글 내용
+           ${requestScope.board.content }
         </div>
         <div class="file_box">
             <img src="img/download.png" class="file_box_download"><span class="file_box_span">파일 목록</span>
-            <p><a href="#">파일1</a></p>
-            <p><a href="#">파일2</a></p>
-            <p><a href="#">파일3</a></p>
+            <c:forEach var="f" items="${requestScope.flist }">
+            <p><a href="fileDown.do?fno=${f.fno }&bno=${f.bno }">${f.fileName }</a></p>
+            </c:forEach>
         </div>
         <div class="comment_box">
             <div class="comment_box_title">
@@ -345,33 +400,46 @@
             <c:forEach var="m" items="${requestScope.comment }">
             <div class="comment_view_box">
                 <div class="comment_view_box_info">
-                    <p>m.writer</p>
-                    <p>m.cdate</p>
+                    <p>${ m.writer}</p>
+                    <p>${ m.cdate}</p>
                 </div>
                 <div class="comment_view_box_content">
-                    m.content
+                    ${m.content}
                     <div class="comment_view_box_preferences">
-                        <a href=""><img src="img/thumbs-up.png" class="comment_view_box_like"></a> m.clike
-                        <a href=""><img src="img/thumbs-down.png" class="comment_view_box_hate"></a> m.chate
+                        <a href=""><img src="img/thumbs-up.png" class="comment_view_box_like"></a> ${ m.clike}
+                        <a href=""><img src="img/thumbs-down.png" class="comment_view_box_hate"></a> ${ m.chate}
                     </div>
+                    <c:if test="${m.writer == sessionScope.id }">
+                    <div class="comment_view_box_delete">
+                        <a href="commentDelete.do?cno=${m.cno }&bno=${m.bno}">댓글삭제</a>
+                    </div>
+                    </c:if>
                 </div>
             </div>
             </c:forEach>
+            <c:choose>
+            <c:when test="${null ne sessionScope.id && null || sessionScope.login}">
             <div class="comment_write_box">
                 <div class="comment_write_box_info">
                     <p>${sessionScope.id }</p>
                     <p>${sessionScope.date }</p>
                 </div>
-                <form class="comment_write_box_content">
+                <form class="comment_write_box_content" action="commentWrite.do" method="get">
                     <div class="comment_write_box_content_mod">
-                        <input type="hidden" name="cno" value="">
-                        <input type="hidden" name="bno" value="">
+                        <input type="hidden" name="bno" value="${requestScope.board.bno }">
                         <textarea name="content" class="comment_write_content"></textarea>
                     </div>
                     <span class="comment_count">0/500 </span>
                     <button>전송</button>
                 </form>
             </div>
+            </c:when>
+            <c:otherwise>
+            	<div class="comment_not_login">
+                	댓글 작성은 <a href="loginView.do">로그인</a> 후 가능합니다.
+            	</div>
+            </c:otherwise>
+            </c:choose>
         </div>
     </section>
 
