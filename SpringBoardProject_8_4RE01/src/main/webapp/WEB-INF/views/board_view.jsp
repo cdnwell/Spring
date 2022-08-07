@@ -9,8 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/wave.css">
-    <link rel="stylesheet" href="css/header_footer.css">
     <style>
         section {
             width: 1000px;
@@ -343,32 +341,7 @@
 </head>
 
 <body>
-    <header>
-        <div>
-            <span class="login_info">${sessionScope.name} 로그인</span>
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0,0,0,0.7" />
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0,0,0,0.5)" />
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0,0,0,0.3)" />
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(0,0,0,0.3)" />
-                </g>
-            </svg>
-            <nav>
-                <ul>
-                    <li><a href="main.do">HOME</a></li>
-                    <li><a href="logout.do">로그아웃</a></li>
-                    <li><a href="#">회원정보수정</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
+	<jsp:include page="template/header.jsp"></jsp:include>
     <section>
         <div class="title_box">
             <div class="title_bDate">
@@ -406,8 +379,8 @@
                 <div class="comment_view_box_content">
                     ${m.content}
                     <div class="comment_view_box_preferences">
-                        <a href=""><img src="img/thumbs-up.png" class="comment_view_box_like"></a> ${ m.clike}
-                        <a href=""><img src="img/thumbs-down.png" class="comment_view_box_hate"></a> ${ m.chate}
+                        <a href="commentLike.do?cno=${m.cno }&bno=${requestScope.board.bno}"><img src="img/thumbs-up.png" class="comment_view_box_like"></a> ${ m.clike}
+                        <a href="commentHate.do?cno=${m.cno }&bno=${requestScope.board.bno}"><img src="img/thumbs-down.png" class="comment_view_box_hate"></a> ${ m.chate}
                     </div>
                     <c:if test="${m.writer == sessionScope.id }">
                     <div class="comment_view_box_delete">
@@ -442,13 +415,8 @@
             </c:choose>
         </div>
     </section>
-
-    <footer>
-        <br>
-        <span>이메일 : cdnwellhk@gmail.com</span><br>
-        <span>홈페이지 : <a href="https://github.com/cdnwell">https://github.com/cdnwell</a></span><br>
-        <span>copyrights&copy All rights reserved</span>
-    </footer>
+	
+	<jsp:include page="template/footer.jsp"></jsp:include>
 </body>
 
 </html>

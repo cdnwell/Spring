@@ -2,61 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="css/wave.css">
-<style>
-* {
-	margin: 0;
-	padding: 0;
-}
-
-header {
-	width: 1200px;
-	margin: 0 auto;
-	margin-top: 20px;
-	border: 1px solid gray;
-	position: relative;
-	text-align: center;
-	width: 1200px;
-	height: 400px;
-	background-image: url(img/javier-miranda-Jn2EaLLYZfY-unsplash.jpg);
-	background-size: 1200px;
-}
-
-nav {
-	height: 80px;
-	position: absolute;
-	left: 288px;
-	top: 320px;
-}
-
-ul {
-	text-align: center;
-}
-
-li {
-	display: inline-block;
-}
-
-li>a {
-	display: inline-block;
-	width: 150px;
-	text-decoration: none;
-	color: white;
-	padding: 30px;
-}
-
-li>a:hover {
-	color: darksalmon;
-	transition: 0.8s;
-}
-
-.login_info {
-	display: inline-block;
-	position: absolute;
-	color: white;
-	bottom: 3px;
-	right: 7px;
-}
-</style>
+<link rel="stylesheet" href="css/header_footer.css">
 <header>
 	<div>
 		<svg class="waves" xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +29,7 @@ li>a:hover {
 				<ul>
 					<li><a href="/">HOME</a></li>
 					<li><a href="logout.do">로그아웃</a></li>
-					<li><a href="#">회원정보수정</a></li>
+					<li><a href="updateView.do">회원정보수정</a></li>
 				</ul>
 			</nav>
 		</c:if>
@@ -92,7 +38,7 @@ li>a:hover {
 				<ul>
 					<li><a href="/">HOME</a></li>
 					<li><a href="loginView.do">로그인</a></li>
-					<li><a href="#">회원가입</a></li>
+					<li><a href="registerView.do">회원가입</a></li>
 				</ul>
 			</nav>
 		</c:if>

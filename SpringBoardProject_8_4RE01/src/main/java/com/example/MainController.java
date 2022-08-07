@@ -98,7 +98,6 @@ public class MainController {
 		}
 		
 		return null;
-		
 	}
 	
 	@RequestMapping("/boardView.do")
@@ -231,4 +230,72 @@ public class MainController {
 		response.getWriter().write(String.valueOf(result)); 
 	}
 	
+	@RequestMapping("/commentLike.do")
+	public String commentLike(int bno, int cno, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		int result = boardService.insertCommentLike(cno,id);
+		return "redirect:/boardView.do?bno="+bno;
+	}
+	
+	@RequestMapping("/commentHate.do")
+	public String commentHate(int bno, int cno, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+		int result = boardService.insertCommentHate(cno,id);
+		return "redirect:/boardView.do?bno="+bno;
+	}
+	
+	@RequestMapping("/updateView.do")
+	public String updateView(HttpSession session, Model model) {
+		String id = (String) session.getAttribute("id");
+		MemberDTO dto = memberService.selectMember(id);
+		
+		dto.setPasswd("");
+		
+		model.addAttribute("member",dto);
+		
+		return "update_view";
+	}
+	
+	@RequestMapping("/update.do")
+	public void update(MemberDTO dto, HttpServletResponse response, HttpSession session) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		try {
+			memberService.updateMember(dto);
+			session.setAttribute("name", dto.getName());
+			
+			response.getWriter().write("<script>location.href='/';</script>");
+		} catch (Exception e) {
+			response.getWriter().write("<script>alert('회원정보 수정에 실패하였습니다.');history.back();</script>");
+		}
+		
+	}
+	
+	@RequestMapping("/registerView.do")
+	public String registerView() {
+		
+		return "register_view";
+	}
+	
+	@RequestMapping("/idCheck.do")
+	public void idCheck(String id, HttpServletResponse response) throws IOException {
+		String id_cmp = memberService.selectId(id);
+		if(id.equals(id_cmp)) {
+			response.getWriter().write(String.valueOf(0));
+		} else {
+			response.getWriter().write(String.valueOf(1));
+		}
+	}
+	
+	@RequestMapping("/register.do")
+	public void registerMember(MemberDTO dto, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		int result = 0;
+		result = memberService.insertMember(dto);
+		
+		if(result != 0) {
+			response.getWriter().write("<script>alert('회원등록이 성공하였습니다.');location.href='loginView.do';</script>");
+		} else {
+			response.getWriter().write("<script>alert('회원등록에 실패하였습니다.');history.back();</script>");
+		}
+	}
 }

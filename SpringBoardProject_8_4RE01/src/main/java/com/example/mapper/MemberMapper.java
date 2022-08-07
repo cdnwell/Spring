@@ -10,5 +10,9 @@ import com.example.dto.MemberDTO;
 public interface MemberMapper {
 
 	MemberDTO login(Map<String, Object> map);
+	MemberDTO selectMember(String id);
+	int updateMember(MemberDTO dto);
+	String selectId(String id);
+	int insertMember(MemberDTO dto);
 	
 }

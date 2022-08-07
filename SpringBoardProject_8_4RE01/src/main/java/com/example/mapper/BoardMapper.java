@@ -25,8 +25,12 @@ public interface BoardMapper {
 	int insertFileList(FileDTO fileDTO);
 	FileDTO selectFile(HashMap<String, String> map);
 	int insertBoardLike(HashMap<String, Object> map);
-	void deleteBoardLike(HashMap<String, Object> map);
+	int deleteBoardLike(HashMap<String, Object> map);
 	int insertBoardHate(HashMap<String, Object> map);
-	void deleteBoardHate(HashMap<String, Object> map);
+	int deleteBoardHate(HashMap<String, Object> map);
+	int insertCommentLike(HashMap<String, Object> map);
+	int deleteCommentLike(HashMap<String, Object> map);
+	int insertCommentHate(HashMap<String, Object> map);
+	int deleteCommentHate(HashMap<String, Object> map);
 	
 }

@@ -43,6 +43,7 @@
 		select bno, fno, path from board_file 
 		where bno = #{bno} and fno = #{fno}
 	</select>
+	
 	<insert id="insertBoardLike" parameterType="map">
 		insert into board_like values(#{bno},#{id})
 	</insert>
@@ -55,4 +56,19 @@
 	<delete id="deleteBoardHate" parameterType="map">
 		delete from board_hate where bno = #{bno} and id = #{id}
 	</delete>
+	
+	<insert id="insertCommentLike" parameterType="map">
+		insert into board_comment_like values(#{cno},#{id})
+	</insert>
+	<delete id="deleteCommentLike" parameterType="map">
+		delete from board_comment_like where cno = #{cno} and id = #{id}
+	</delete>
+	<insert id="insertCommentHate" parameterType="map">
+		insert into board_comment_hate values(#{cno},#{id})
+	</insert>
+	<delete id="deleteCommentHate" parameterType="map">
+		delete from board_comment_hate where cno = #{cno} and id = #{id}
+	</delete>
+	
+	
 </mapper>

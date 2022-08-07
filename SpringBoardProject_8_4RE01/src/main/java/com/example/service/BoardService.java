@@ -100,7 +100,32 @@ public class BoardService {
 		
 		return result;
 	}
+
+	public int insertCommentLike(int cno, String id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cno", cno);
+		map.put("id", id);
+		int result = 0;
+		try {
+		result = mapper.insertCommentLike(map);
+		} catch (Exception e) {
+			mapper.deleteCommentLike(map);
+		}
+		return 0;
+	}
 	
+	public int insertCommentHate(int cno, String id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cno", cno);
+		map.put("id", id);
+		int result = 0;
+		try {
+			result = mapper.insertCommentHate(map);
+		} catch (Exception e) {
+			mapper.deleteCommentHate(map);
+		}
+		return 0;
+	}
 	
 	
 }
