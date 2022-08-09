@@ -64,12 +64,14 @@ public class MainController {
 	}
 	
 	@RequestMapping("/login.do")
-	public String login(String id, String pass, HttpSession session, HttpServletResponse response) {
+	public void login(String id, String pass, HttpSession session, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html;charset=utf-8");
 		MemberDTO dto = memberService.login(id,pass);
 		
 		if(dto == null) {
 			
-			return "redirect:/loginView.do";
+			response.getWriter().write("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.');location.href='loginView.do';</script>");
+//			return "redirect:/loginView.do";
 		} else {
 			session.setAttribute("id", dto.getId());
 			session.setAttribute("name", dto.getName());
@@ -80,7 +82,8 @@ public class MainController {
 			String date = sdf.format(Calendar.getInstance().getTime());
 			session.setAttribute("date", date);
 			
-			return "redirect:/main.do";
+			response.getWriter().write("<script>location.href='main.do';</script>");
+//			return "redirect:/main.do";
 		}
 		
 		

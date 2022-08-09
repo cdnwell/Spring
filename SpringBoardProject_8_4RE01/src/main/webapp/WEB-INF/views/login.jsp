@@ -76,7 +76,7 @@ legend{
 			<legend>로그인</legend>
 			${sessionScope.name }님이 로그인 하셨습니다.
 			<p>
-			<a href="logout.do?loginMsg=fieldset">로그아웃</a> | <a href="member_update_view.do">정보수정</a>
+			<a href="logout.do">로그아웃</a> | <a href="updateView.do">정보수정</a>
 			</p>
 			</fieldset>
 		</c:when>
@@ -89,8 +89,7 @@ legend{
 					<label for="pass" >암호 </label> <span class="pass_span">:</span> <input type="password" name="pass" id="pass">
 					</div>
 					<button type="submit" class="login_btn">로그인</button>
-					<a href="register.do" class="register_a">회원가입</a>
-					
+					<a href="registerView.do" class="register_a">회원가입</a>
 				</form>
 			</fieldset>
 		</c:otherwise>
