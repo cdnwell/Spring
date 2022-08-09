@@ -260,7 +260,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         var id_chk_flag = false;
-
+		var change_flag = false;
+        
         function id_chk(){
             const regex = /^[a-zA-Z0-9]*$/;
             var id = $('#id1').val();
@@ -268,6 +269,11 @@
 
             id_p.css('color','red');
             id_p.css('display','block');
+            
+            if(change_flag){
+                id_chk_flag = false;
+                change_flag = false;
+            }
             
             if(!regex.test(id)){
                 id_p.html('아이디는 영어 혹은 숫자로 이루어져야만 합니다.');
@@ -289,6 +295,7 @@
 
             id_p.css('color','blue');
             id_p.html('아이디가 유효합니다.');
+            change_flag = true;
             return true;
         }
         function pass_chk(){

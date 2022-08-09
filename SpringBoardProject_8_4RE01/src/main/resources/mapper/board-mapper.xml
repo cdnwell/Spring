@@ -70,5 +70,17 @@
 		delete from board_comment_hate where cno = #{cno} and id = #{id}
 	</delete>
 	
-	
+	<select id="selectLagLead" parameterType="int" resultType="map">
+		select next,before from
+		(select nvl(lag(bno) over (order by bno desc),-1) as next,
+		nvl(lead(bno) over (order by bno desc),-1) as before,
+		bv.* from board_view bv)
+		where bno = #{bno}
+	</select>
+	<select id="searchRownum" parameterType="int" resultType="int">
+		select rn
+		from 
+		(select bno bn, rownum rn from board_view)
+		where bn = #{bno}
+	</select>
 </mapper>

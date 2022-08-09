@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -104,11 +105,15 @@ public class MainController {
 	}
 	
 	@RequestMapping("/boardView.do")
-	public String boardView(int bno,HttpServletResponse response,Model model,HttpSession session) throws IOException {
+	public String boardView(int bno, HttpServletResponse response,Model model,HttpSession session) throws IOException {
 		response.setContentType("text/html;charset=utf-8");
 		BoardDTO dto = boardService.selectBoard(bno);
 		List<FileDTO> flist= boardService.selectFileList(bno);
 		List<BoardCommentDTO> comment = boardService.selectComment(bno);
+		Map<String, Integer> move = boardService.selectLagLead(bno);
+		//move -> NEXT, BEFORE
+		int rownum = boardService.searchRownum(bno);
+		int pageNo = rownum / 15 + (rownum % 15 == 0 ? 0 : 1);
 		
 		HashSet<Integer> set = (HashSet<Integer>)session.getAttribute("bno_history");
 		
@@ -123,6 +128,8 @@ public class MainController {
 			model.addAttribute("board",dto);
 			model.addAttribute("flist",flist);
 			model.addAttribute("comment",comment);
+			model.addAttribute("pageNo",pageNo);
+			model.addAttribute("move",move);
 			
 			return "board_view";
 		} else {
@@ -301,4 +308,5 @@ public class MainController {
 			response.getWriter().write("<script>alert('회원등록에 실패하였습니다.');history.back();</script>");
 		}
 	}
+	
 }

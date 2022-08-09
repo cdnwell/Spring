@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -126,6 +127,15 @@ public class BoardService {
 		}
 		return 0;
 	}
+
+	public Map<String, Integer> selectLagLead(int bno) {
+		return mapper.selectLagLead(bno);
+	}
+
+	public int searchRownum(int bno) {
+		return mapper.searchRownum(bno);
+	}
+
 	
 	
 }

@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -32,5 +33,7 @@ public interface BoardMapper {
 	int deleteCommentLike(HashMap<String, Object> map);
 	int insertCommentHate(HashMap<String, Object> map);
 	int deleteCommentHate(HashMap<String, Object> map);
+	Map<String, Integer> selectLagLead(int bno);
+	int searchRownum(int bno);
 	
 }

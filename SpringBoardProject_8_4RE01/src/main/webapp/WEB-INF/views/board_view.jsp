@@ -288,6 +288,34 @@
         .comment_not_login a:link, .comment_not_login a:visited{
             color: cornflowerblue;
         }
+        
+        
+        
+        .content_menu_box{
+        	width :100%;
+        	display :flex;
+        	flex-direction : row;
+        	justify-content: space-between;
+        	box-sizing: border-box;
+        }
+        
+        .menu_btn{
+        	display : inline-block;
+        	min-width : 70px;
+        	background-color : #d7d7d7;
+        	border : 1px solid #b7b7b7;
+        	border-radius : 6px;
+        	color : black;
+        	text-decoration : none;
+        	text-align : center;
+        	padding : 7px;
+        	margin : 4px;
+        }
+        
+        .comment_delete_a{
+        	text-decoration : none;
+        	color : black;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -366,6 +394,30 @@
             <p><a href="fileDown.do?fno=${f.fno }&bno=${f.bno }">${f.fileName }</a></p>
             </c:forEach>
         </div>
+        <div class="content_menu_box">
+        	<div class="menu_list_box">
+        		<a href="/?pageNo=${requestScope.pageNo }" class="menu_list menu_btn">목록으로</a>
+        	</div>
+        	<div class="move_btn_box">
+        		<c:choose>
+        			<c:when test="${requestScope.move.BEFORE == -1 }">
+        				<a class="prev_btn menu_btn">이전 글이 없습니다</a>
+        			</c:when>
+        			<c:otherwise>
+        				<a href="boardView.do?bno=${requestScope.move.BEFORE }" class="prev_btn menu_btn">이전 글</a>
+        			</c:otherwise>
+        		</c:choose>
+	        	<c:choose>
+	        		<c:when test="${requestScope.move.NEXT == -1 }">
+	        			<a class="next_btn menu_btn">다음 글이 없습니다</a>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<a href="boardView.do?bno=${requestScope.move.NEXT }" class="next_btn menu_btn">다음 글</a>
+	        		</c:otherwise>
+	        	</c:choose>
+	        	
+        	</div>
+        </div>
         <div class="comment_box">
             <div class="comment_box_title">
                 comment
@@ -384,7 +436,7 @@
                     </div>
                     <c:if test="${m.writer == sessionScope.id }">
                     <div class="comment_view_box_delete">
-                        <a href="commentDelete.do?cno=${m.cno }&bno=${m.bno}">댓글삭제</a>
+                        <a href="commentDelete.do?cno=${m.cno }&bno=${m.bno}" class="comment_delete_a">댓글삭제</a>
                     </div>
                     </c:if>
                 </div>
