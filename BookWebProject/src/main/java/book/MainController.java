@@ -46,6 +46,7 @@ public class MainController {
 		return null;
 	}
 	
+	@RequestMapping("/insert.do")
 	public String insert(HttpServletRequest request, HttpServletResponse response) {
 		String bno = request.getParameter("bno");
 		String title = request.getParameter("title");

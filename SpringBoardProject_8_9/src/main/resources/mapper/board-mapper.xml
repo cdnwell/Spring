@@ -19,7 +19,7 @@
 	<select id="selectCommentDTO" parameterType="int" resultType="comment">
 		select * from board_comment_view where bno = #{bno}
 	</select>
-	<select id="selectFileList" parameterType="int" resultType="file">
+	<select id="List" parameterType="int" resultType="file">
 		select * from board_file where bno = #{bno}
 	</select>
 	<delete id="deleteBoard" parameterType="int">

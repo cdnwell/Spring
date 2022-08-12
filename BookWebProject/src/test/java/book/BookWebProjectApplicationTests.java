@@ -24,7 +24,10 @@ class BookWebProjectApplicationTests {
 		String wdate = "2020-02-19";
 		BookDTO dto= new BookDTO(bno, title, writer, publisher, wdate);
 		
-		mapper.insertBook(dto);
+		int result = mapper.insertBook(dto);
+		if(result == 0) 
+			fail("정보 입력에 실패하였습니다.");
+		
 	}
 	
 	@Test
@@ -39,7 +42,9 @@ class BookWebProjectApplicationTests {
 	@AfterEach
 	void afterTest() {
 		String bno = "8912456712";
-		mapper.deleteBook(bno);
+		int result = mapper.deleteBook(bno);
+		if(result == 0)
+			fail("정보 삭제에 실패하였습니다.");
 	}
 	
 }
